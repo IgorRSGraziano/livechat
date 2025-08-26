@@ -17,11 +17,6 @@ defmodule LivechatWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", LivechatWeb do
-    pipe_through :browser
-
-    get "/", PageController, :home
-  end
 
   # Other scopes may use custom stacks.
   # scope "/api", LivechatWeb do
@@ -50,13 +45,14 @@ defmodule LivechatWeb.Router do
   scope "/", LivechatWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
-    get "/users/register", UserRegistrationController, :new
-    post "/users/register", UserRegistrationController, :create
+    get "/auth/register", UserRegistrationController, :new
+    post "/auth/register", UserRegistrationController, :create
   end
 
   scope "/", LivechatWeb do
     pipe_through [:browser, :require_authenticated_user]
 
+    get "/", PageController, :home
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm-email/:token", UserSettingsController, :confirm_email
@@ -65,9 +61,9 @@ defmodule LivechatWeb.Router do
   scope "/", LivechatWeb do
     pipe_through [:browser]
 
-    get "/users/log-in", UserSessionController, :new
-    get "/users/log-in/:token", UserSessionController, :confirm
-    post "/users/log-in", UserSessionController, :create
-    delete "/users/log-out", UserSessionController, :delete
+    get "/login", UserSessionController, :new
+    get "/login/:token", UserSessionController, :confirm
+    post "/login", UserSessionController, :create
+    delete "/logout", UserSessionController, :delete
   end
 end
