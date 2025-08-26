@@ -2,7 +2,7 @@ import Config
 
 # Configure your database
 config :livechat, Livechat.Repo,
-  username: "postgres",
+  username: "graziano",
   password: "postgres",
   hostname: "localhost",
   database: "livechat_dev",
