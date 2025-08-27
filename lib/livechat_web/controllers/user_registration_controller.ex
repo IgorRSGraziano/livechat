@@ -15,7 +15,7 @@ defmodule LivechatWeb.UserRegistrationController do
         {:ok, _} =
           Accounts.deliver_login_instructions(
             user,
-            &url(~p"/users/log-in/#{&1}")
+            &url(~p"/user/login/#{&1}")
           )
 
         conn
@@ -23,10 +23,11 @@ defmodule LivechatWeb.UserRegistrationController do
           :info,
           "An email was sent to #{user.email}, please access it to confirm your account."
         )
-        |> redirect(to: ~p"/users/log-in")
+        |> redirect(to: ~p"/user/login")
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :new, changeset: changeset)
+        conn
+        |> render(:new, changeset: changeset)
     end
   end
 end

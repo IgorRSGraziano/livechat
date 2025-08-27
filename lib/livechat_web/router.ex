@@ -45,8 +45,8 @@ defmodule LivechatWeb.Router do
   scope "/", LivechatWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
-    get "/auth/register", UserRegistrationController, :new
-    post "/auth/register", UserRegistrationController, :create
+    get "/user/register", UserRegistrationController, :new
+    post "/user/register", UserRegistrationController, :create
   end
 
   scope "/", LivechatWeb do
@@ -61,9 +61,9 @@ defmodule LivechatWeb.Router do
   scope "/", LivechatWeb do
     pipe_through [:browser]
 
-    get "/login", UserSessionController, :new
-    get "/login/:token", UserSessionController, :confirm
-    post "/login", UserSessionController, :create
-    delete "/logout", UserSessionController, :delete
+    get "/user/login", UserSessionController, :new
+    get "/user/login/:token", UserSessionController, :confirm
+    post "/user/login", UserSessionController, :create
+    delete "/user/logout", UserSessionController, :delete
   end
 end
